@@ -22,9 +22,9 @@ async function createReplyMessage(input) {
     encodingType: "UTF8"
   };
 
-  const { data } = await axios.post(
+  const data = await axios.post(
     gcp_analyze_sentiment_url,
-    { params }
+    params
   );
   const document_sentiment_score = data.documentSentiment.score;
 
