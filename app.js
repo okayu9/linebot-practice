@@ -14,9 +14,7 @@ function createReplyMessage(input) {
     type: "text",
     // `（バッククォート）で囲った中で${変数名}や${式}を書くと結果が展開される
     // テンプレートリテラル（Template literal）という文法です
-    text: `${input}、と言いましたね？`
-    // 以下と同じです
-    // text: input + '、と言いましたね？'
+    text: `「${input}」と言ったきり君は帰ってこなかった`
   };
 }
 
