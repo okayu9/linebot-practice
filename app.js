@@ -12,7 +12,7 @@ const lineClient = new line.Client(lineConfig);
 const gcp_key = process.env.GCP_KEY;
 const gcp_analyze_sentiment_url = `https://language.googleapis.com/v1/documents:analyzeSentiment?key=${gcp_key}`;
 
-function createReplyMessage(input) {
+async function createReplyMessage(input) {
   const params = {
     document: {
       type: "PLAIN_TEXT",
@@ -38,7 +38,7 @@ const server = express();
 
 server.use("/images", express.static(path.join(__dirname, "images")));
 
-server.post("/webhook", line.middleware(lineConfig), (req, res) => {
+server.post("/webhook", line.middleware(lineConfig), async (req, res) => {
   // LINEのサーバーに200を返す
   res.sendStatus(200);
 
