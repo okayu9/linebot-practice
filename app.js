@@ -13,7 +13,7 @@ const gcp_key = process.env.GCP_KEY;
 const gcp_analyze_sentiment_url = `https://language.googleapis.com/v1/documents:analyzeSentiment?key=${gcp_key}`;
 
 const replies = [//入力の感情がネガティブであるほど上の返事をする
-  "こんなにひどいことがあったんだから後は上がるだけだよ", // 入力が最もネガティブ
+  "こんなに嫌なことがあったんだからこれからは良いことあるよ", // 入力が最もネガティブ
   "出来ることなら変わってあげたいんだけど……",
   "元気出して",
   "明日は明日の風が吹くよ",
