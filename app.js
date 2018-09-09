@@ -12,7 +12,7 @@ function createReplyMessage(input) {
   // 1. 固定メッセージを返す
   return {
     type: "text",
-    text: "Hack Time!"
+    text: "Hack Time okayu!"
   };
 }
 
