@@ -26,7 +26,7 @@ async function createReplyMessage(input) {
     gcp_analyze_sentiment_url,
     params
   );
-  print(data);
+  console.log(data);
   const document_sentiment_score = data.documentSentiment.score;
 
   return {
