@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const line = require("@line/bot-sdk");
+const axios = require("axios");
 
 const lineConfig = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
@@ -8,18 +9,29 @@ const lineConfig = {
 };
 const lineClient = new line.Client(lineConfig);
 
-function createReplyMessage(input) {
-  // 3. 画像を返す
+const gcp_key = process.env.GCP_KEY;
+const gcp_analyze_sentiment_url = `https://language.googleapis.com/v1/documents:analyzeSentiment?key=${gcp_key}`;
 
-  const appUrl = process.env.HEROKU_APP_URL;
-  return {
-    type: "image",
-    previewImageUrl: `${appUrl}images/question.png`,
-    originalContentUrl: `${appUrl}images/answer.png`
+function createReplyMessage(input) {
+  const params = {
+    document: {
+      type: "PLAIN_TEXT",
+      language: "JA",
+      content: input
+    },
+    encodingType: "UTF8"
   };
 
-  // メッセージオブジェクトに関する公式ドキュメント
-  // https://developers.line.me/ja/reference/messaging-api/#message-objects
+  const { data } = await axios.post(
+    gcp_analyze_sentiment_url,
+    { params }
+  );
+  const document_sentiment_score = data.documentSentiment.score;
+
+  return {
+    type: "text",
+    text: `${document_sentiment_score}`
+  };
 }
 
 const server = express();
